@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Maze Roller</string>
+    <string name="play">Play</string>
+    <string name="settings">Settings</string>
+    <string name="leaderboard">Leaderboard</string>
+    <string name="title">Maze Roller</string>
+    <string name="levels">Level Select</string>
+    <string name="easy">Easy</string>
+    <string name="medium">Medium</string>
+    <string name="hard">Hard</string>
 </resources>
