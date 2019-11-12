@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.mazeroller">
 
+    <uses-feature
+        android:name="android.hardware.sensor.gyroscope"
+        android:required="false" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,10 +13,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar.FullScreen">
-        <activity android:name=".LevelSelect"
+        <activity android:name=".Level"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape">
         </activity>
+        <activity
+            android:name=".LevelSelect"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".MainMenu"
             android:configChanges="keyboardHidden|orientation|screenSize"
