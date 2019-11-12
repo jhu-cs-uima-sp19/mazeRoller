@@ -16,6 +16,9 @@
         <activity android:name=".Leaderboard"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"></activity>
+        <activity android:name=".Settings"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"></activity>
         <activity
             android:name=".Level"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -31,6 +31,15 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(new Intent(MainMenu.this, Leaderboard.class));
             }
         });
+
+        Button settings = findViewById(R.id.settings);
+
+        settings.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenu.this, Settings.class));
+            }
+        });
     }
 
 
