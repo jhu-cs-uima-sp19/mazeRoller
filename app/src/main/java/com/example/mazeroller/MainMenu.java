@@ -22,6 +22,15 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(new Intent(MainMenu.this, LevelSelect.class));
             }
         });
+
+        Button leaderboard = findViewById(R.id.leaderboard);
+
+        leaderboard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainMenu.this, Leaderboard.class));
+            }
+        });
     }
 
 
