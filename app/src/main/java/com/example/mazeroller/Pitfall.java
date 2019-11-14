@@ -1,10 +1,9 @@
 package com.example.mazeroller;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 
-public class Wall implements Element {
+public class Pitfall implements Element {
 
     static Paint paint = new Paint();
 

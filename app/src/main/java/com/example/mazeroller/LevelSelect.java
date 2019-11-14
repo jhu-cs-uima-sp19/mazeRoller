@@ -20,7 +20,7 @@ public class LevelSelect extends AppCompatActivity {
         easy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LevelSelect.this, Level.class));
+                startActivity(new Intent(LevelSelect.this, Level1.class));
             }
         });
 

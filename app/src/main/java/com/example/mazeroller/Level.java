@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -22,19 +23,26 @@ import android.os.Handler;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-public class Level extends AppCompatActivity {
-
-    float screenWidth;
-    float screenHeight;
+public abstract class Level extends AppCompatActivity {
 
     SensorManager manager;
-    Sensor gyroscope;
+    Sensor accelerometer;
     SensorEventListener listener;
     Stage stage;
+    Element[][] grid;
+    int horz;
+    int vert;
+    int background;
+    int ballColor;
+    int wallColor;
+    int starColor;
+    int pitfallColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,31 +50,32 @@ public class Level extends AppCompatActivity {
         setContentView(R.layout.activity_level);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        screenWidth = displayMetrics.widthPixels;
-        screenHeight = displayMetrics.heightPixels;
+        ImageButton pause = findViewById(R.id.pause);
+        pause.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment pauseMenu = new Pause();
+                getSupportFragmentManager().beginTransaction()
+                        .add(R.id.menus, pauseMenu).addToBackStack(null).commit();
+            }
+        });
 
-        stage = new Stage(this, (int) screenWidth - 200, (int) screenHeight - 200, 10, 5);
-        stage.setBackgroundColor(Color.parseColor("#FFFFFF"));
-        stage.setLayoutParams(new ConstraintLayout.LayoutParams((int) screenWidth - 200, (int) screenHeight - 200));
-        stage.setX(100);
-        stage.setY(100);
-        ((ConstraintLayout) findViewById(R.id.level)).addView(stage);
+        stage = new Stage(this, (int) MainMenu.screenWidth - 200, (int) MainMenu.screenHeight - 250, horz, vert);
+        stage.setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        stage.setX(0);
+        stage.setY(0);
+        stage.setGrid(grid);
+        stage.setBackgroundColor(getResources().getColor(background));
 
-        Element[][] elements = {{null, new Wall(),       null,       null,       null,       null,       null, new Wall(), new Wall(), new Wall()},
-                                {null, new Wall(),       null, new Wall(), new Wall(), new Wall(),       null,       null, new Wall(), new Wall()},
-                                {null, new Wall(),       null,       null,       null, new Wall(), new Wall(),       null,       null, new Wall()},
-                                {null, new Wall(), new Wall(), new Wall(),       null, new Wall(), new Wall(), new Wall(),       null,       null},
-                                {null,       null,       null,       null,       null, new Wall(), new Wall(), new Wall(), new Wall(), new Wall()}};
+        ((ConstraintLayout) findViewById(R.id.stage)).addView(stage);
 
-        stage.setGrid(elements);
-
-        Stage.setBallPaint(getResources().getColor(R.color.blue));
-        Wall.setPaintColor(getResources().getColor(R.color.darkGrey));
+        Stage.setBallPaint(getResources().getColor(ballColor));
+        Wall.setPaintColor(getResources().getColor(wallColor));
+        Star.setPaintColor(getResources().getColor(starColor));
+        Pitfall.setPaintColor(getResources().getColor(pitfallColor));
 
         manager = ((SensorManager) getSystemService(SENSOR_SERVICE));
-        gyroscope = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         listener = new SensorEventListener() {
             @Override
             public void onSensorChanged(SensorEvent sensorEvent) {
@@ -79,11 +88,9 @@ public class Level extends AppCompatActivity {
             }
 
             @Override
-            public void onAccuracyChanged(Sensor sensor, int i) {
-
-            }
+            public void onAccuracyChanged(Sensor sensor, int i) { }
         };
-        manager.registerListener(listener, gyroscope, SensorManager.SENSOR_DELAY_GAME);
+        manager.registerListener(listener, accelerometer, SensorManager.SENSOR_DELAY_GAME);
     }
 
 }
