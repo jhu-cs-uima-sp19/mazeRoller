@@ -52,6 +52,32 @@ public class Stage extends View {
             pos[0] = pos[0] + (int) vel[0];
             pos[1] = pos[1] + (int) vel[1];
 
+            enforceBorder();
+
+            Element[][] elems = grid.getElements();
+
+            for (int i = 0; i < this.horz; i++) {
+                for (int j = 0; j < this.vert; j++) {
+                    if (elems[j][i] instanceof Wall) {
+                        enforceWallCollision(elems[j][i]);
+                    }
+                }
+            }
+
+        }
+
+        @Override
+        protected void onDraw(Canvas canvas) {
+            grid.draw(canvas);
+            canvas.drawCircle(pos[0], pos[1], CIRCLE_RADIUS, mPaint);
+            invalidate();
+        }
+
+        public static void setBallPaint(int color) {
+            mPaint.setColor(color);
+        }
+
+        private void enforceBorder() {
             if (pos[0] <= 0 + CIRCLE_RADIUS) {
                 pos[0] = 0 + CIRCLE_RADIUS;
                 vel[0] = 0;
@@ -68,50 +94,25 @@ public class Stage extends View {
                 pos[1] = viewHeight - CIRCLE_RADIUS;
                 vel[1] = 0;
             }
+        }
 
-            Element[][] elems = grid.getElements();
-
-            for (int i = 0; i < this.horz; i++) {
-                for (int j = 0; j < this.vert; j++) {
-                    if (elems[j][i] instanceof Wall) {
-                        if (within(pos[0] - CIRCLE_RADIUS, pos[1], i, j) && vel[0] < 0) {
-                            pos[0] = viewWidth * (i + 1) / this.horz + CIRCLE_RADIUS;
-                            vel[0] = 0;
-                        }
-                        if (within(pos[0] + CIRCLE_RADIUS, pos[1], i, j) && vel[0] > 0) {
-                            pos[0] = viewWidth * i / this.horz - CIRCLE_RADIUS;
-                            vel[0] = 0;
-                        }
-                        if (within(pos[0], pos[1] - CIRCLE_RADIUS, i, j) && vel[1] < 0) {
-                            pos[1] = viewHeight * (j + 1) / this.vert + CIRCLE_RADIUS;
-                            vel[1] = 0;
-                        }
-                        if (within(pos[0], pos[1] + CIRCLE_RADIUS, i, j) && vel[1] > 0) {
-                            pos[1] = viewHeight * j / this.vert - CIRCLE_RADIUS;
-                            vel[1] = 0;
-                        }
-                    }
-                }
+        public void enforceWallCollision(Element element) {
+            if (element.getHitbox().contains(pos[0] - CIRCLE_RADIUS, pos[1]) && vel[0] < 0) {
+                pos[0] = element.getHitbox().right + CIRCLE_RADIUS;
+                vel[0] = 0;
             }
-
-        }
-
-        @Override
-        protected void onDraw(Canvas canvas) {
-            canvas.drawCircle(pos[0], pos[1], CIRCLE_RADIUS, mPaint);
-            grid.draw(canvas);
-            invalidate();
-        }
-
-        public static void setBallPaint(int color) {
-            mPaint.setColor(color);
-        }
-
-        private boolean within(int x, int y, int horz, int vert) {
-            return (viewWidth * horz / this.horz < x &&
-            viewHeight * vert / this.vert < y &&
-            x < viewWidth * (horz + 1) / this.horz &&
-            y < viewHeight * (vert + 1) / this.vert);
+            if (element.getHitbox().contains(pos[0] + CIRCLE_RADIUS, pos[1]) && vel[0] > 0) {
+                pos[0] = element.getHitbox().left - CIRCLE_RADIUS;
+                vel[0] = 0;
+            }
+            if (element.getHitbox().contains(pos[0], pos[1] - CIRCLE_RADIUS) && vel[1] < 0) {
+                pos[1] = element.getHitbox().bottom + CIRCLE_RADIUS;
+                vel[1] = 0;
+            }
+            if (element.getHitbox().contains(pos[0], pos[1] + CIRCLE_RADIUS) && vel[1] > 0) {
+                pos[1] = element.getHitbox().top - CIRCLE_RADIUS;
+                vel[1] = 0;
+            }
         }
 
 }

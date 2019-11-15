@@ -43,6 +43,7 @@ public abstract class Level extends AppCompatActivity {
     int wallColor;
     int starColor;
     int pitfallColor;
+    int endColor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +74,7 @@ public abstract class Level extends AppCompatActivity {
         Wall.setPaintColor(getResources().getColor(wallColor));
         Star.setPaintColor(getResources().getColor(starColor));
         Pitfall.setPaintColor(getResources().getColor(pitfallColor));
+        End.setPaintColor(getResources().getColor(endColor));
 
         manager = ((SensorManager) getSystemService(SENSOR_SERVICE));
         accelerometer = manager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
