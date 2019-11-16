@@ -1,10 +1,13 @@
 package com.example.mazeroller;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.hardware.SensorEvent;
 import android.view.View;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class Stage extends View {
 
@@ -61,6 +64,15 @@ public class Stage extends View {
                     if (elems[j][i] instanceof Wall) {
                         enforceWallCollision(elems[j][i]);
                     }
+                    else if (elems[j][i] instanceof Star) {
+                        collectStar(elems[j][i]);
+                    }
+                    else if (elems[j][i] instanceof Pitfall) {
+                        die(elems[j][i]);
+                    }
+                    else if (elems[j][i] instanceof End) {
+                        win(elems[j][i]);
+                    }
                 }
             }
 
@@ -96,7 +108,7 @@ public class Stage extends View {
             }
         }
 
-        public void enforceWallCollision(Element element) {
+        private void enforceWallCollision(Element element) {
             if (element.getHitbox().contains(pos[0] - CIRCLE_RADIUS, pos[1]) && vel[0] < 0) {
                 pos[0] = element.getHitbox().right + CIRCLE_RADIUS;
                 vel[0] = 0;
@@ -112,6 +124,40 @@ public class Stage extends View {
             if (element.getHitbox().contains(pos[0], pos[1] + CIRCLE_RADIUS) && vel[1] > 0) {
                 pos[1] = element.getHitbox().top - CIRCLE_RADIUS;
                 vel[1] = 0;
+            }
+        }
+
+        private void collectStar(Element element) {
+            Hitbox hitbox = element.getHitbox();
+            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
+                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+                grid.erase(element);
+            }
+        }
+
+        private void die(Element element) {
+            Hitbox hitbox = element.getHitbox();
+            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
+                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+                Die die = new Die();
+                ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.menus, die).addToBackStack("die").commit();
+            }
+        }
+
+        private void win(Element element) {
+            Hitbox hitbox = element.getHitbox();
+            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
+                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+                Win win = new Win();
+                ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.menus, win).addToBackStack("win").commit();
             }
         }
 

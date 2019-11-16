@@ -10,4 +10,6 @@
     <string name="hard">Hard</string>
     <string name="Leaderboard">Leaderboard</string>
     <string name="Pause">Pause</string>
+    <string name="Die">You Died!</string>
+    <string name="Win">You Made It!</string>
 </resources>

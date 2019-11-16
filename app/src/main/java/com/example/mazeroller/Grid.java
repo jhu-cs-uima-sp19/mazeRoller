@@ -30,6 +30,16 @@ public class Grid {
         this.elements = elements;
     }
 
+    public void erase(Element element) {
+        for (int i = 0; i < this.horz; i++) {
+            for (int j = 0; j < this.vert; j++) {
+                if (elements[j][i] == element) {
+                    elements[j][i] = null;
+                }
+            }
+        }
+    }
+
     public void draw(Canvas canvas) {
         for (int i = 0; i < this.horz; i++) {
             for (int j = 0; j < this.vert; j++) {

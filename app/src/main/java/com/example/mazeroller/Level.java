@@ -57,7 +57,7 @@ public abstract class Level extends AppCompatActivity {
             public void onClick(View view) {
                 Fragment pauseMenu = new Pause();
                 getSupportFragmentManager().beginTransaction()
-                        .add(R.id.menus, pauseMenu).addToBackStack(null).commit();
+                        .replace(R.id.menus, pauseMenu).addToBackStack("pause").commit();
             }
         });
 
@@ -86,7 +86,10 @@ public abstract class Level extends AppCompatActivity {
                                 String.format("%.2f", sensorEvent.values[1]) + " " +
                                 String.format("%.2f", sensorEvent.values[2])
                 );
-                stage.onSensorEvent(sensorEvent);
+                Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menus);
+                if (fragment == null) {
+                    stage.onSensorEvent(sensorEvent);
+                }
             }
 
             @Override
