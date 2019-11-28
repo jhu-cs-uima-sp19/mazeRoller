@@ -6,13 +6,15 @@ import android.graphics.Path;
 
 public class Star implements Element {
 
-    static Paint paint = new Paint();
+    static Paint[] paint = { new Paint(), new Paint() };
     Hitbox hitbox = new Hitbox();
 
     @Override
     public void draw(Canvas canvas, int left, int top, int right, int bottom) {
         Path path = new Path();
-        paint.setStyle(Paint.Style.FILL);
+        paint[0].setStyle(Paint.Style.FILL);
+        paint[1].setStyle(Paint.Style.STROKE);
+        paint[1].setStrokeWidth(1);
         float[] mid = {(right + left) / 2, (bottom + top) / 2};
         float rad = (float) (Math.min(right - left, bottom - top) / 3);
         // top left
@@ -29,7 +31,8 @@ public class Star implements Element {
         path.lineTo(mid[0] + rad * (float) Math.sin(Math.toRadians(288)), mid[1] - rad * (float) Math.cos(Math.toRadians(288)));
 
         path.close();
-        canvas.drawPath(path, paint);
+        canvas.drawPath(path, paint[0]);
+        // canvas.drawPath(path, paint[1]);
         setHitbox(left, top, right, bottom);
     }
 
@@ -44,7 +47,8 @@ public class Star implements Element {
     }
 
     public static void setPaintColor(int color) {
-        paint.setColor(color);
+        paint[0].setColor(color);
     }
+    public static void setBorderColor(int color) { paint[1].setColor(color); }
 
 }

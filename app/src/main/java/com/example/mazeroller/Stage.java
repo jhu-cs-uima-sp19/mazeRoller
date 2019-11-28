@@ -22,6 +22,7 @@ public class Stage extends View {
         private int vert;
 
         private Grid grid;
+        public int stars = 0;
 
         public Stage(Context context, int width, int height, int horz, int vert) {
             super(context);
@@ -134,6 +135,20 @@ public class Stage extends View {
                     hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
                     hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
                 grid.erase(element);
+                stars += 1;
+                switch (stars) {
+                    case 1:
+                        ((Activity) getContext()).findViewById(R.id.star1).setBackgroundResource(R.drawable.starfill);
+                        break;
+                    case 2:
+                        ((Activity) getContext()).findViewById(R.id.star2).setBackgroundResource(R.drawable.starfill);
+                        break;
+                    case 3:
+                        ((Activity) getContext()).findViewById(R.id.star3).setBackgroundResource(R.drawable.starfill);
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 

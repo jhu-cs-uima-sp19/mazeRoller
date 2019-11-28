@@ -19,6 +19,7 @@ public class Level1 extends Level {
         ballColor = R.color.blue;
         wallColor = R.color.lightGrey;
         starColor = R.color.yellow;
+        starBorderColor = R.color.black;
         pitfallColor = R.color.black;
         endColor = R.color.red;
 

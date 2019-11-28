@@ -12,6 +12,7 @@ import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.drawable.BitmapDrawable;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,19 +21,21 @@ import android.hardware.SensorManager;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public abstract class Level extends AppCompatActivity {
 
-    SensorManager manager;
     Sensor accelerometer;
+    SensorManager manager;
     SensorEventListener listener;
     Stage stage;
     Element[][] grid;
@@ -42,8 +45,10 @@ public abstract class Level extends AppCompatActivity {
     int ballColor;
     int wallColor;
     int starColor;
+    int starBorderColor;
     int pitfallColor;
     int endColor;
+    long time = SystemClock.elapsedRealtime();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +66,9 @@ public abstract class Level extends AppCompatActivity {
             }
         });
 
+        final Chronometer timer = findViewById(R.id.timer);
+        timer.start();
+
         stage = new Stage(this, (int) MainMenu.screenWidth - 200, (int) MainMenu.screenHeight - 250, horz, vert);
         stage.setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         stage.setX(0);
@@ -73,6 +81,7 @@ public abstract class Level extends AppCompatActivity {
         Stage.setBallPaint(getResources().getColor(ballColor));
         Wall.setPaintColor(getResources().getColor(wallColor));
         Star.setPaintColor(getResources().getColor(starColor));
+        Star.setBorderColor(getResources().getColor(starBorderColor));
         Pitfall.setPaintColor(getResources().getColor(pitfallColor));
         End.setPaintColor(getResources().getColor(endColor));
 
@@ -88,7 +97,13 @@ public abstract class Level extends AppCompatActivity {
                 );
                 Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.menus);
                 if (fragment == null) {
+                    time = SystemClock.elapsedRealtime() - timer.getBase();
+                    timer.start();
                     stage.onSensorEvent(sensorEvent);
+                }
+                else {
+                    timer.setBase(SystemClock.elapsedRealtime() - time);
+                    timer.stop();
                 }
             }
 
