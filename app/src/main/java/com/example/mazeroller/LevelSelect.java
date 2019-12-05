@@ -29,7 +29,7 @@ public class LevelSelect extends AppCompatActivity {
         medium.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LevelSelect.this, Level1.class));
+                startActivity(new Intent(LevelSelect.this, Level2.class));
             }
         });
 
@@ -38,7 +38,7 @@ public class LevelSelect extends AppCompatActivity {
         hard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(LevelSelect.this, Level1.class));
+                startActivity(new Intent(LevelSelect.this, Level3.class));
             }
         });
 

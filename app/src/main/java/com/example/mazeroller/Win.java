@@ -1,5 +1,6 @@
 package com.example.mazeroller;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -64,7 +65,16 @@ public class Win extends Fragment {
         replay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), Level1.class));
+                Activity activity = getActivity();
+                if (activity instanceof Level1) {
+                    startActivity(new Intent(getActivity(), Level1.class));
+                }
+                else if (activity instanceof Level2) {
+                    startActivity(new Intent(getActivity(), Level2.class));
+                }
+                else if (activity instanceof Level3) {
+                    startActivity(new Intent(getActivity(), Level3.class));
+                }
             }
         });
     }

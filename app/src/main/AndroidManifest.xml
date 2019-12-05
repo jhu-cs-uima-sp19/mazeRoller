@@ -18,6 +18,14 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"></activity>
         <activity
+            android:name=".Level2"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"></activity>
+        <activity
+            android:name=".Level3"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="landscape"></activity>
+        <activity
             android:name=".Leaderboard"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape" />

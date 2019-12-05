@@ -47,6 +47,7 @@
             android:layout_height="125dp"
             android:background="@drawable/round_red"
             android:scaleType="fitXY"
+            android:src="@drawable/ic_home_black_24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/resume"
             app:layout_constraintStart_toStartOf="parent"
