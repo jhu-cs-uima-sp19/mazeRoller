@@ -24,6 +24,24 @@ public class LevelSelect extends AppCompatActivity {
             }
         });
 
+        Button medium = findViewById(R.id.medium);
+
+        medium.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LevelSelect.this, Level1.class));
+            }
+        });
+
+        Button hard = findViewById(R.id.hard);
+
+        hard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LevelSelect.this, Level1.class));
+            }
+        });
+
         ImageButton home = findViewById(R.id.levelSelectHome);
 
         home.setOnClickListener(new View.OnClickListener() {

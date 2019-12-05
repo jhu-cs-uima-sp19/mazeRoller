@@ -30,6 +30,18 @@ public class Grid {
         this.elements = elements;
     }
 
+    public int[] findStart() {
+        for (int i = 0; i < this.horz; i++) {
+            for (int j = 0; j < this.vert; j++) {
+                if (elements[j][i] instanceof Start) {
+                    int[] loc = {this.width * (2 * i + 1) / horz / 2, this.height * (2 * j + 1) / vert / 2};
+                    return loc;
+                }
+            }
+        }
+        throw new NullPointerException("Start position not found");
+    }
+
     public void erase(Element element) {
         for (int i = 0; i < this.horz; i++) {
             for (int j = 0; j < this.vert; j++) {

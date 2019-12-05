@@ -42,6 +42,7 @@ public abstract class Level extends AppCompatActivity {
     int horz;
     int vert;
     int background;
+    int startColor;
     int ballColor;
     int wallColor;
     int starColor;
@@ -74,11 +75,13 @@ public abstract class Level extends AppCompatActivity {
         stage.setX(0);
         stage.setY(0);
         stage.setGrid(grid);
+        stage.findStart();
         stage.setBackgroundColor(getResources().getColor(background));
 
         ((ConstraintLayout) findViewById(R.id.stage)).addView(stage);
 
         Stage.setBallPaint(getResources().getColor(ballColor));
+        Start.setPaintColor(getResources().getColor(startColor));
         Wall.setPaintColor(getResources().getColor(wallColor));
         Star.setPaintColor(getResources().getColor(starColor));
         Star.setBorderColor(getResources().getColor(starBorderColor));

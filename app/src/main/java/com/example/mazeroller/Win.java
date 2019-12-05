@@ -6,7 +6,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
 public class Win extends Fragment {
@@ -20,6 +23,32 @@ public class Win extends Fragment {
     @Override
     public void onStart(){
         super.onStart();
+
+        Level level = (Level) getActivity();
+
+        ((TextView) level.findViewById(R.id.time)).setText(
+                ((TextView) level.findViewById(R.id.timer)).getText());
+
+        switch (level.stage.stars) {
+
+            case 3:
+                ((ImageView) level.findViewById(R.id.collected1)).setImageResource(R.drawable.starfill);
+                ((ImageView) level.findViewById(R.id.collected2)).setImageResource(R.drawable.starfill);
+                ((ImageView) level.findViewById(R.id.collected3)).setImageResource(R.drawable.starfill);
+                ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
+                        .add(R.id.menus, new Record()).addToBackStack("record").commit();
+                break;
+            case 2:
+                ((ImageView) level.findViewById(R.id.collected1)).setImageResource(R.drawable.starfill);
+                ((ImageView) level.findViewById(R.id.collected2)).setImageResource(R.drawable.starfill);
+                break;
+            case 1:
+                ((ImageView) level.findViewById(R.id.collected1)).setImageResource(R.drawable.starfill);
+                break;
+            default:
+                break;
+
+        }
 
         ImageButton home = getActivity().findViewById(R.id.home);
 

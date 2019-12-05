@@ -42,6 +42,10 @@ public class Stage extends View {
             this.grid.setGrid(elements);
         }
 
+        public void findStart() {
+            pos = grid.findStart();
+        }
+
         @Override
         protected void onSizeChanged(int w, int h, int oldw, int oldh) {
             super.onSizeChanged(w, h, oldw, oldh);

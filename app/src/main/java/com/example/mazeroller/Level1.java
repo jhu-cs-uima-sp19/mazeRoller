@@ -16,6 +16,7 @@ public class Level1 extends Level {
         horz = 10;
         vert = 5;
         background = R.color.white;
+        startColor = R.color.green;
         ballColor = R.color.blue;
         wallColor = R.color.lightGrey;
         starColor = R.color.yellow;
@@ -23,11 +24,11 @@ public class Level1 extends Level {
         pitfallColor = R.color.black;
         endColor = R.color.red;
 
-        Element[][] elements = {{      null, new Wall(),          null,       null, null,       null,       null, new Wall(), new Wall(), new Wall()},
-                                {      null, new Wall(),          null, new Wall(), null, new Wall(),       null,       null, new Wall(), new Wall()},
-                                {      null, new Wall(), new Pitfall(),       null, null, new Wall(), new Wall(),       null,       null, new Wall()},
-                                {      null, new Wall(),    new Wall(), new Wall(), null, new Wall(), new Wall(), new Wall(),       null,  new End()},
-                                {new Star(),       null,          null,       null, null, new Wall(), new Wall(), new Wall(), new Wall(), new Wall()}};
+        Element[][] elements = {{new Start(), new Wall(),          null,       null, null,       null,       null,       null, new Star(), new Pitfall()},
+                                {       null, new Wall(),    new Star(), new Wall(), null, new Wall(),       null, new Wall(), new Wall(),    new Wall()},
+                                {       null, new Wall(), new Pitfall(),       null, null, new Wall(),       null,       null,       null,    new Wall()},
+                                {       null, new Wall(),    new Wall(), new Wall(), null, new Wall(), new Wall(), new Wall(),       null,     new End()},
+                                { new Star(),       null,          null,       null, null, new Wall(), new Wall(), new Wall(), new Wall(),    new Wall()}};
         this.grid = elements;
 
     }
