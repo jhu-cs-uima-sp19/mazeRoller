@@ -11,7 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Stage extends View {
 
-        private static final int CIRCLE_RADIUS = 50; // pixels
+        private int radius; // pixels
 
         private static Paint mPaint = new Paint();
         private int[] pos = new int[2];
@@ -30,6 +30,7 @@ public class Stage extends View {
             viewHeight = height;
             this.horz = horz;
             this.vert = vert;
+            radius = Math.min(width / horz, height / vert) / 4;
             grid = new Grid(viewWidth, viewHeight, horz, vert);
             mPaint = new Paint();
         }
@@ -86,7 +87,7 @@ public class Stage extends View {
         @Override
         protected void onDraw(Canvas canvas) {
             grid.draw(canvas);
-            canvas.drawCircle(pos[0], pos[1], CIRCLE_RADIUS, mPaint);
+            canvas.drawCircle(pos[0], pos[1], radius, mPaint);
             invalidate();
         }
 
@@ -95,49 +96,49 @@ public class Stage extends View {
         }
 
         private void enforceBorder() {
-            if (pos[0] <= 0 + CIRCLE_RADIUS) {
-                pos[0] = 0 + CIRCLE_RADIUS;
+            if (pos[0] <= 0 + radius) {
+                pos[0] = 0 + radius;
                 vel[0] = 0;
             }
-            if (pos[0] >= viewWidth - CIRCLE_RADIUS) {
-                pos[0] = viewWidth - CIRCLE_RADIUS;
+            if (pos[0] >= viewWidth - radius) {
+                pos[0] = viewWidth - radius;
                 vel[0] = 0;
             }
-            if (pos[1] <= 0 + CIRCLE_RADIUS) {
-                pos[1] = 0 + CIRCLE_RADIUS;
+            if (pos[1] <= 0 + radius) {
+                pos[1] = 0 + radius;
                 vel[1] = 0;
             }
-            if (pos[1] >= viewHeight - CIRCLE_RADIUS) {
-                pos[1] = viewHeight - CIRCLE_RADIUS;
+            if (pos[1] >= viewHeight - radius) {
+                pos[1] = viewHeight - radius;
                 vel[1] = 0;
             }
         }
 
         private void enforceWallCollision(Element element) {
-            if (element.getHitbox().contains(pos[0] - CIRCLE_RADIUS, pos[1]) && vel[0] < 0) {
-                pos[0] = element.getHitbox().right + CIRCLE_RADIUS;
+            if (element.getHitbox().contains(pos[0] - radius, pos[1]) && vel[0] < 0) {
+                pos[0] = element.getHitbox().right + radius;
                 vel[0] = 0;
             }
-            if (element.getHitbox().contains(pos[0] + CIRCLE_RADIUS, pos[1]) && vel[0] > 0) {
-                pos[0] = element.getHitbox().left - CIRCLE_RADIUS;
+            if (element.getHitbox().contains(pos[0] + radius, pos[1]) && vel[0] > 0) {
+                pos[0] = element.getHitbox().left - radius;
                 vel[0] = 0;
             }
-            if (element.getHitbox().contains(pos[0], pos[1] - CIRCLE_RADIUS) && vel[1] < 0) {
-                pos[1] = element.getHitbox().bottom + CIRCLE_RADIUS;
+            if (element.getHitbox().contains(pos[0], pos[1] - radius) && vel[1] < 0) {
+                pos[1] = element.getHitbox().bottom + radius;
                 vel[1] = 0;
             }
-            if (element.getHitbox().contains(pos[0], pos[1] + CIRCLE_RADIUS) && vel[1] > 0) {
-                pos[1] = element.getHitbox().top - CIRCLE_RADIUS;
+            if (element.getHitbox().contains(pos[0], pos[1] + radius) && vel[1] > 0) {
+                pos[1] = element.getHitbox().top - radius;
                 vel[1] = 0;
             }
         }
 
         private void collectStar(Element element) {
             Hitbox hitbox = element.getHitbox();
-            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
-                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+            if (hitbox.contains(pos[0] - radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - radius) ||
+                    hitbox.contains(pos[0] + radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + radius)) {
                 grid.erase(element);
                 stars += 1;
                 switch (stars) {
@@ -158,10 +159,10 @@ public class Stage extends View {
 
         private void die(Element element) {
             Hitbox hitbox = element.getHitbox();
-            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
-                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+            if (hitbox.contains(pos[0] - radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - radius) ||
+                    hitbox.contains(pos[0] + radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + radius)) {
                 Die die = new Die();
                 ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.menus, die).addToBackStack("die").commit();
@@ -170,10 +171,10 @@ public class Stage extends View {
 
         private void win(Element element) {
             Hitbox hitbox = element.getHitbox();
-            if (hitbox.contains(pos[0] - CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] - CIRCLE_RADIUS) ||
-                    hitbox.contains(pos[0] + CIRCLE_RADIUS, pos[1]) ||
-                    hitbox.contains(pos[0], pos[1] + CIRCLE_RADIUS)) {
+            if (hitbox.contains(pos[0] - radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] - radius) ||
+                    hitbox.contains(pos[0] + radius, pos[1]) ||
+                    hitbox.contains(pos[0], pos[1] + radius)) {
                 Win win = new Win();
                 ((AppCompatActivity) getContext()).getSupportFragmentManager().beginTransaction()
                         .replace(R.id.menus, win).addToBackStack("win").commit();
