@@ -38,7 +38,7 @@
         android:layout_marginStart="90dp"
         android:layout_marginLeft="90dp"
         android:layout_marginBottom="17dp"
-        android:text="Tilt Controls"
+        android:text="Tilt/Joystick"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/hsens"
         app:layout_constraintStart_toStartOf="parent" />
