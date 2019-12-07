@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.hardware.SensorEvent;
+import android.util.Log;
 import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -56,8 +57,7 @@ public class Stage extends View {
         }
 
         public void onSensorEvent (SensorEvent event) {
-            SharedPreferences pref = getContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
-            SharedPreferences.Editor editor = pref.edit();
+            SharedPreferences pref = getContext().getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
             int hsens = pref.getInt("hsens", 50);
             int vsens = pref.getInt("vsens", 50);
             vel[0] = vel[0] + (hsens/50.0f) * (event.values[1] / 4);
@@ -101,19 +101,19 @@ public class Stage extends View {
         }
 
         private void enforceBorder() {
-            if (pos[0] <= 0 + radius) {
+            if (pos[0] < 0 + radius) {
                 pos[0] = 0 + radius;
                 vel[0] = 0;
             }
-            if (pos[0] >= viewWidth - radius) {
+            if (pos[0] > viewWidth - radius) {
                 pos[0] = viewWidth - radius;
                 vel[0] = 0;
             }
-            if (pos[1] <= 0 + radius) {
+            if (pos[1] < 0 + radius) {
                 pos[1] = 0 + radius;
                 vel[1] = 0;
             }
-            if (pos[1] >= viewHeight - radius) {
+            if (pos[1] > viewHeight - radius) {
                 pos[1] = viewHeight - radius;
                 vel[1] = 0;
             }
