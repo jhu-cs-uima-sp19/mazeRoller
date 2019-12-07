@@ -1,3 +1,14 @@
-The features that we have completed so far are setting up the general navigation of the application, by directing from the home menu activity to both the leaderboard activities and the setting activities. In addition, we set up the navigation for the play button to take us to the level select activity. After this we have currently only set up the navigation for the easy level navigation as we have not spent much time in actually designing levels, but instead focusing on getting the actual rolling functionality of the ball to work. Therefore, when the easy level button is clicked, it directs us to a simple design of a ball on a screen that is capable of rolling around based on the gyroscopic features of the phone.
+*Maze Roller - A Gaming Experience*
 
-In the current state, we are not focusing too much on the functionality of the side features such as sound, turning tilt off, or even making complicated levels. We spent the wide majority of our time on getting a ball to appear on the screen that moves around based on tilting the phone around, which took us approximately 10 hours to figure out. We made a simple layout of how we want the rest of our app navigation to be structured, but most of this will likely be enhanced a lot in our final sprint when we have more time to focus on logic and aesthetics once level and ball functionality has been intertwined.
+Maze Roller is a unique puzzle game that involves navigating a ball through a maze by tilting your device to simulate gravity acting on the ball. 
+
+The features that we have completed so far include: 
+- General Navigation
+- Level Selection from 3 unique levels of varying difficulty and aesthetic
+- Movement of ball around maze due to gravity
+- Pausing, level failure, and level succes, with relevant actions from each result
+- Collection of stars and tracking of level completion time
+- Adjustment of control sensitivity from settings
+
+In its current state, our application is fairly functional and can be played as a standalone game. With its flexible design, it can be readily expanded to include more levels of various difficulties, colors, etc. 
+In the near future, we would like to finish our development of a database for a leaderboard of top completion times for each level to make our game more competitive; setting up Firebase gave us a little bit of trouble this time around. We would also like to finish implementing our alternative control scheme using a virtual joystick, as well as allow the user to "center" gravity around a particular axis, so that they can play the game while holding the device in different orientations or correct for inaccuracies. 
