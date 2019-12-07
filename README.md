@@ -6,7 +6,7 @@ The features that we have completed so far include:
 - General Navigation
 - Level Selection from 3 unique levels of varying difficulty and aesthetic
 - Movement of ball around maze due to gravity
-- Pausing, level failure, and level succes, with relevant actions from each result
+- Pausing, level failure, and level success, with relevant actions from each result
 - Collection of stars and tracking of level completion time
 - Adjustment of control sensitivity from settings
 
