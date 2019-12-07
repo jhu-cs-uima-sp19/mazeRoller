@@ -2,6 +2,7 @@ package com.example.mazeroller;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.hardware.SensorEvent;
@@ -55,8 +56,12 @@ public class Stage extends View {
         }
 
         public void onSensorEvent (SensorEvent event) {
-            vel[0] = vel[0] + event.values[1] / 2;
-            vel[1] = vel[1] + event.values[0] / 2;
+            SharedPreferences pref = getContext().getSharedPreferences("MyPref", 0); // 0 - for private mode
+            SharedPreferences.Editor editor = pref.edit();
+            int hsens = pref.getInt("hsens", 50);
+            int vsens = pref.getInt("vsens", 50);
+            vel[0] = vel[0] + (hsens/50.0f) * (event.values[1] / 4);
+            vel[1] = vel[1] + (vsens/50.0f) * (event.values[0] / 4);
 
             pos[0] = pos[0] + (int) vel[0];
             pos[1] = pos[1] + (int) vel[1];
