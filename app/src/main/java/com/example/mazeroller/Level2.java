@@ -34,7 +34,7 @@ public class Level2 extends Level {
                 {          null,new Pitfall(),  new Wall(), new Start(),        null,          null, new Wall(), new Wall(),    new Wall(),   new Wall(),          null,   new Wall(),           null,       null,       null, new Pitfall(),  new Wall(),    new Wall(), new Wall(),  new Wall()},
                 {          null,         null,  new Wall(),        null,        null,          null,       null,       null,          null,   new Pitfall(),       null, new Pitfall(),           null,       null,new Wall(),    new Wall(),  new Wall(),    new Pitfall(), new Pitfall(),  new Pitfall()},
                 {          null,         null,        null,        null,        null,          null,       null,       null,          null,            null,       null,          null,           null,       null,new Wall(),    new Wall(),  new Wall(),    null, new Star(),  new Pitfall()},
-                { new Pitfall(),       null,          null,       null,   new Wall(), new Wall(), new Wall(),    new Wall(), new Wall(),    new Wall(), new Wall(), new Wall(),          null, null, null, null,       null,          null, new Pitfall(), new Pitfall()},
+                { new Pitfall(),        null,          null,       null,   new Wall(),   new Wall(), new Wall(), new Wall(),    new Wall(),      new Wall(), new Wall(),    new Wall(),          null,        null,      null,          null,        null,    null, new Pitfall(), new Pitfall()},
 
 
         };
