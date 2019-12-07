@@ -36,6 +36,7 @@ public class Level3 extends Level {
                 {null,          null,          new Wall(),    new Pitfall(), null,          null,          null,          new Wall(),    new Wall(),    new Wall(),    null,       null,          new Wall(),    new Wall(),    new Wall(),    new Wall(),    new Wall(),          null,             null},
                 {new Pitfall(), null,          new Pitfall(), new Wall(),    null,          new Pitfall(), null,          new Pitfall(), null,          null,          null,       new Pitfall(), null,          null,          null,          null,          null,                null,             new Pitfall()},
                 {null,          null,          null,          null,          null,          new Wall(),    null,          null,          null,          new Pitfall(), null,       null,          null,          new Pitfall(), new Wall(),    new Pitfall(), null,                null,             new Pitfall()}
+
         };
       this.grid = elements;
 
